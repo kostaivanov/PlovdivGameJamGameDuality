@@ -6,6 +6,8 @@ using UnityEngine;
 internal class PlayerMovement : ObjectComponents, IMovable
 {
     private float move_X, move_Y;
+    private Vector2 moveDirection;
+
 
 
     // Start is called before the first frame update
@@ -25,12 +27,14 @@ internal class PlayerMovement : ObjectComponents, IMovable
 
     private void ProcessInput()
     {
-        move_X = Input.GetAxisRaw("Horizontal");
+        //move_X = Input.GetAxisRaw("Horizontal");
         move_Y = Input.GetAxisRaw("Vertical");
+        moveDirection = new Vector2(move_X, move_Y).normalized;
+
     }
 
     public void Move()
     {
-        throw new System.NotImplementedException();
+        rigidBody.velocity = new Vector2(rigidBody.velocity.x, moveDirection.y * moveSpeed * dash * Time.fixedDeltaTime);
     }
 }
