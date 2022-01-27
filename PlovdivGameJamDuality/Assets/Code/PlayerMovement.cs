@@ -24,6 +24,12 @@ internal class PlayerMovement : ObjectComponents, IMovable
         {
             ProcessInput();
         }
+        else
+        {
+            //rigidBody.velocity = Vector2.zero;
+            isMoving = false;
+            move_Y = 0f;
+        }
     }
 
 
