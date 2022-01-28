@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SceneSpawnObjects : MonoBehaviour
 {
-    private float nextSpawnTimeBig, nextSpawnTimeMedium, nextSpawnTimeSmall;
-    private string[] meteoritesNames = new string[] { "BigMeteorite", "MediumMeteorite", "SmallMeteorite" };
-    private string[] laserNames = new string[] { "LaserItem", "LaserItemRed" };
+    private float nextSpawnTimeBig;
+    private string[] platformNames = new string[] { "1", "2", "3", "4" };
 
     [SerializeField] private float addToSpawnTime;
     public float chanceSpawnRare = 0.1f;
@@ -34,14 +33,14 @@ public class SceneSpawnObjects : MonoBehaviour
         {
             string typeObject = string.Empty;
 
-            if (Random.Range(0f, 2f) > chanceSpawnRare)
+            if (Random.Range(0f, 10f) > chanceSpawnRare)
             {
-                typeObject = meteoritesNames[Random.Range(0, meteoritesNames.Length)];
+                typeObject = platformNames[Random.Range(0, platformNames.Length)];
             }
-            else
-            {
-                typeObject = laserNames[Random.Range(0, laserNames.Length)];
-            }
+            //else
+            //{
+            //    typeObject = laserNames[Random.Range(0, laserNames.Length)];
+            //}
 
             GameObject obj = ObjectsPooler.current.GetPooledObject(typeObject);
 
