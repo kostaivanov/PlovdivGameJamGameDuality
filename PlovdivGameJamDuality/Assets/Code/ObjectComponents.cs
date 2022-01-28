@@ -10,6 +10,7 @@ internal abstract class ObjectComponents : MonoBehaviour
     protected Collider2D collider2D;
     //protected Animator animator;
     protected SpriteRenderer sprite;
+    internal LayerMask groundLayer;
     #endregion
 
 
@@ -20,5 +21,7 @@ internal abstract class ObjectComponents : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         //animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        groundLayer = LayerMask.GetMask("GroundLayer");
+
     }
 }
