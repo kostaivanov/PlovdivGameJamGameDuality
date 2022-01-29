@@ -217,12 +217,12 @@ GameObject:
   - component: {fileID: 78775178}
   - component: {fileID: 78775177}
   m_Layer: 0
-  m_Name: Victor_4
+  m_Name: 4_Victor
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &78775177
 Animator:
   serializedVersion: 3
@@ -1218,12 +1218,12 @@ GameObject:
   - component: {fileID: 1450598971}
   - component: {fileID: 1450598970}
   m_Layer: 0
-  m_Name: Victor_3
+  m_Name: 3_Victor
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1450598970
 Animator:
   serializedVersion: 3
@@ -1550,7 +1550,7 @@ GameObject:
   - component: {fileID: 1659268067}
   - component: {fileID: 1659268068}
   m_Layer: 0
-  m_Name: Victor_1
+  m_Name: 1_Victor
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1705,6 +1705,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e13de8e54f0aba41b99ebe85c5650cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players:
+  - {fileID: 1659268061}
+  - {fileID: 1997413550}
+  - {fileID: 1450598969}
+  - {fileID: 78775176}
   fullHealth: 25
 --- !u!1 &1683580330
 GameObject:
@@ -1869,12 +1874,12 @@ GameObject:
   - component: {fileID: 1997413552}
   - component: {fileID: 1997413551}
   m_Layer: 0
-  m_Name: Victor_2
+  m_Name: 2_Victor
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1997413551
 Animator:
   serializedVersion: 3

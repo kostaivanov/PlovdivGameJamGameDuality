@@ -11,7 +11,7 @@ internal class PlayerHealth : ObjectComponents
     private float Timer;
     private const float decreasePerMinute = 5;
     internal PlayerState state;
-    private List<GameObject> players;
+    [SerializeField] private List<GameObject> players;
     private int currentPlayerIndex;
 
     #region HealthBar
@@ -40,12 +40,13 @@ internal class PlayerHealth : ObjectComponents
         healthBarUIFound = false;
 
         players = new List<GameObject>();
-        players = GameObject.FindGameObjectsWithTag("Player").ToList();
+        //players = GameObject.FindGameObjectsWithTag("Player").ToList();
         currentPlayerIndex = 1;
         for (int i = 1; i < players.Count; i++)
         {
+
             players[i].SetActive(false);
-            Debug.Log(players[i].name);
+
         }
     }
 
