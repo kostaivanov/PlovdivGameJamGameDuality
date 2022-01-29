@@ -5,10 +5,9 @@ using UnityEngine;
 
 internal class PlayerMovement : ObjectComponents, IMovable
 {
-    //private float moveAxis_X, moveAxis_Y;
-    //private float moveDirection;
-    //[SerializeField] private float speed;
-    //private bool isMoving;
+    private const float minFreeFallStateVelocity_Y = -2.1f;
+    private const float minFallAfterJumpVelocity_Y = 0.1f;
+
     private float extraDistance = 0.1f;
 
     [SerializeField] private float jumpForce;
@@ -21,6 +20,8 @@ internal class PlayerMovement : ObjectComponents, IMovable
 
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
+
+    internal PlayerState state = PlayerState.running;
 
 
     // Start is called before the first frame update
@@ -35,16 +36,6 @@ internal class PlayerMovement : ObjectComponents, IMovable
     // Update is called once per frame
     void Update()
     {
-        //if (Input.anyKey)
-        //{
-            //ProcessInput();
-        //}
-        //else
-        //{
-        //    isMoving = false;
-        //    moveAxis_X = 0;
-        //    moveAxis_Y = 0f;
-        //}
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -70,28 +61,6 @@ internal class PlayerMovement : ObjectComponents, IMovable
         {
             jumpPressed = false;
         }
-    }
-
-    //private void ProcessInput()
-    //{
-        //moveDirection = Input.GetAxisRaw("Horizontal");
-        //moveAxis_Y = Input.GetAxisRaw("Vertical");
-        //moveDirection = new Vector2(moveAxis_X, moveAxis_Y).normalized;
-        //isMoving = true;
-    //}
-
-    public void Move()
-    {
-    //    if (moveDirection < 0)
-    //    {
-    //        this.transform.localScale = new Vector2(-1, 1);
-    //        rigidBody.velocity = new Vector2(-speed * Time.fixedDeltaTime, rigidBody.velocity.y);
-    //    }
-    //    if (moveDirection > 0)
-    //    {
-    //        this.transform.localScale = new Vector2(1, 1);
-    //        rigidBody.velocity = new Vector2(speed * Time.fixedDeltaTime, rigidBody.velocity.y);
-    //    }
     }
 
     internal bool CheckIfIsGrounded()
@@ -127,4 +96,54 @@ internal class PlayerMovement : ObjectComponents, IMovable
             yield return null;
         }
     }
+
+    private void AnimationStateSwitch()
+    {
+        if (state == PlayerState.jumping)
+        {
+            if (rigidBody.velocity.y < minFallAfterJumpVelocity_Y)
+            {
+                state = PlayerState.falling;
+            }
+        }
+
+        else if (state == PlayerState.falling)
+        {
+            if (this.playerCapsuleCollider.IsTouchingLayers(groundLayer))
+            {
+                state = PlayerState.idle;
+            }
+        }
+
+        else if (Mathf.Abs(rigidBody.velocity.x) > minRunningStateVelocity_X)
+        {
+            state = PlayerState.running;
+        }
+
+        else
+        {
+            state = PlayerState.idle;
+        }
+
+        if (rigidBody.velocity.y < minFreeFallStateVelocity_Y)
+        {
+            state = PlayerState.falling;
+        }
+
+        if (state == PlayerState.attack)
+        {
+
+        }
+    }
+
+    //private void FootStep()
+    //{
+    //    footStep.Play();
+    //}
+
+    public void Move()
+    {
+        throw new NotImplementedException();
+    }
+
 }
