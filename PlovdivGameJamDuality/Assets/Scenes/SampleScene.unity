@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 78775178}
   - component: {fileID: 78775177}
   m_Layer: 0
-  m_Name: Victor4_3
+  m_Name: Victor4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1059,7 +1059,7 @@ GameObject:
   - component: {fileID: 1450598971}
   - component: {fileID: 1450598970}
   m_Layer: 0
-  m_Name: Victor3_3
+  m_Name: Victor3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1635,7 +1635,7 @@ GameObject:
   - component: {fileID: 1997413552}
   - component: {fileID: 1997413551}
   m_Layer: 0
-  m_Name: Victor2_1
+  m_Name: Victor2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

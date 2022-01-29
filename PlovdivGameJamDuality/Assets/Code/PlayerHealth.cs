@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    private int lowerBoundLife = 10;
+    private int upperBoundLife = 15;
     private const float decreasePerMinute = 5;
 
     #region HealthBar
