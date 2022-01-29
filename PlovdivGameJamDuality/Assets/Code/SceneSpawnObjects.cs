@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SceneSpawnObjects : MonoBehaviour
 {
-    private float nextSpawnTimeBig;
+    private float nextSpawnTime;
     private string[] platformNames = new string[] { "1", "2", "3", "4" };
     private string groundName = "5";
     [SerializeField] private float addToSpawnTime;
@@ -13,18 +13,24 @@ public class SceneSpawnObjects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nextSpawnTimeBig = Time.time + addToSpawnTime;
+        nextSpawnTime = Time.time + addToSpawnTime;
         //PermanentFunctions.instance.OnIncreaseSpeed += IncreaseRateOfSpawnMeteorites;
 
         //nextSpawnTimeMedium = Time.time + 3f;
         //nextSpawnTimeSmall = Time.time + 1f;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        SpawnMeteorite(nextSpawnTimeBig);
+        if (this.gameObject.name.EndsWith("4") == true)
+        {
+            SpawnGround(nextSpawnTime);
+        }
+        else
+        {
+            SpawnMeteorite(nextSpawnTime);
+        }
     }
 
     private void SpawnMeteorite(float spawnTime)
@@ -52,7 +58,7 @@ public class SceneSpawnObjects : MonoBehaviour
             obj.transform.rotation = this.transform.rotation;
             obj.SetActive(true);
 
-            nextSpawnTimeBig += addToSpawnTime;
+            nextSpawnTime += addToSpawnTime;
         }
     }
 
@@ -74,7 +80,7 @@ public class SceneSpawnObjects : MonoBehaviour
             obj.transform.rotation = this.transform.rotation;
             obj.SetActive(true);
 
-            nextSpawnTimeBig += addToSpawnTime;
+            nextSpawnTime += addToSpawnTime;
         }
     }
 
