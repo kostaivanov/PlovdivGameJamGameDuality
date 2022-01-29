@@ -1399,8 +1399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593aed6e1ffde644095264428c16ab9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 210
-  decayRate: 50
+  jumpForce: 300
+  decayRate: 60
   fallMultiplier: 8
   lowJumpMultiplier: 2
 --- !u!58 &1659268065

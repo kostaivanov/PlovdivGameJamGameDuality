@@ -5,8 +5,7 @@ using UnityEngine;
 
 internal class PlayerMovement : ObjectComponents, IMovable
 {
-    private const float minFreeFallStateVelocity_Y = -2.1f;
-    private const float minFallAfterJumpVelocity_Y = 0.1f;
+    private const float minimumFallingVelocity_Y = -2f;
 
     private float extraDistance = 0.1f;
 
@@ -97,11 +96,31 @@ internal class PlayerMovement : ObjectComponents, IMovable
         }
     }
 
-    private void AnimationStateSwitch()
+    protected void AnimationStateSwitch()
     {
-        if (state == PlayerState.jumping)
+
+        if (rigidBody.velocity.y > 1f && CheckIfIsGrounded() != true)
         {
-            if (rigidBody.velocity.y < minFallAfterJumpVelocity_Y)
+            this.state = PlayerState.jumping;
+        }
+
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Falling") && state == PlayerState.falling && collider2D.IsTouchingLayers(groundLayer))
+        {
+            state = PlayerState.landing;
+        }
+
+        else if (state == PlayerState.jumping)
+        {
+            if (rigidBody.velocity.y == 0 || CheckIfIsGrounded() == true)
+            {
+                state = PlayerState.running;
+            }
+        }
+
+        else if (state == PlayerState.jumping)
+        {
+
+            if (rigidBody.velocity.y < minimumFallingVelocity_Y)
             {
                 state = PlayerState.falling;
             }
@@ -109,30 +128,24 @@ internal class PlayerMovement : ObjectComponents, IMovable
 
         else if (state == PlayerState.falling)
         {
-            if (this.playerCapsuleCollider.IsTouchingLayers(groundLayer))
+            if (collider2D.IsTouchingLayers(groundLayer))
             {
-                state = PlayerState.idle;
+                state = PlayerState.running;
             }
         }
+        //else if (moving && CheckIfGrounded())
+        //{
+        //    state = PlayerState.moving;
+        //}
 
-        else if (Mathf.Abs(rigidBody.velocity.x) > minRunningStateVelocity_X)
+        else
         {
             state = PlayerState.running;
         }
 
-        else
-        {
-            state = PlayerState.idle;
-        }
-
-        if (rigidBody.velocity.y < minFreeFallStateVelocity_Y)
+        if (rigidBody.velocity.y < minimumFallingVelocity_Y)
         {
             state = PlayerState.falling;
-        }
-
-        if (state == PlayerState.attack)
-        {
-
         }
     }
 
