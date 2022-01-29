@@ -62,6 +62,12 @@ internal class PlayerMovement : ObjectComponents, IMovable
         }
     }
 
+    private void LateUpdate()
+    {
+        this.AnimationStateSwitch();
+        base.animator.SetInteger("state", (int)state);
+    }
+
     internal bool CheckIfIsGrounded()
     {
         RaycastHit2D rayCastHit = Physics2D.BoxCast(base.collider2D.bounds.center, base.collider2D.bounds.size, 0f, Vector2.down, extraDistance, base.groundLayer);
@@ -80,8 +86,7 @@ internal class PlayerMovement : ObjectComponents, IMovable
     private IEnumerator Jump()
     {
         jumpForce_2 = CalculateJumpForce(Physics2D.gravity.magnitude, jumpForce);
-        //the initial jump
-        Debug.Log(jumpForce_2);
+
         rigidBody.AddForce(Vector2.up * (jumpForce_2 * 2) * rigidBody.mass);
         yield return null;
 
@@ -103,12 +108,10 @@ internal class PlayerMovement : ObjectComponents, IMovable
         {
             this.state = PlayerState.jumping;
         }
-
-        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Falling") && state == PlayerState.falling && collider2D.IsTouchingLayers(groundLayer))
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("falling") && state == PlayerState.falling && collider2D.IsTouchingLayers(groundLayer))
         {
             state = PlayerState.landing;
         }
-
         else if (state == PlayerState.jumping)
         {
             if (rigidBody.velocity.y == 0 || CheckIfIsGrounded() == true)
@@ -116,7 +119,6 @@ internal class PlayerMovement : ObjectComponents, IMovable
                 state = PlayerState.running;
             }
         }
-
         else if (state == PlayerState.jumping)
         {
 
@@ -125,7 +127,6 @@ internal class PlayerMovement : ObjectComponents, IMovable
                 state = PlayerState.falling;
             }
         }
-
         else if (state == PlayerState.falling)
         {
             if (collider2D.IsTouchingLayers(groundLayer))
@@ -133,11 +134,6 @@ internal class PlayerMovement : ObjectComponents, IMovable
                 state = PlayerState.running;
             }
         }
-        //else if (moving && CheckIfGrounded())
-        //{
-        //    state = PlayerState.moving;
-        //}
-
         else
         {
             state = PlayerState.running;
