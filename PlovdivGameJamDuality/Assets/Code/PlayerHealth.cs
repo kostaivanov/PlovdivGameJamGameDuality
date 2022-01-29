@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Linq;
 internal class PlayerHealth : ObjectComponents
 {
     private int lowerBoundLife = 10;
@@ -11,6 +11,8 @@ internal class PlayerHealth : ObjectComponents
     private float Timer;
     private const float decreasePerMinute = 5;
     internal PlayerState state;
+    private List<GameObject> players;
+    private int currentPlayerIndex;
 
     #region HealthBar
     private bool healthBarIsActive;
@@ -28,13 +30,18 @@ internal class PlayerHealth : ObjectComponents
     #endregion
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         healthBarIsActive = false;
         fellOffWorld = false;
 
         currentHealth = fullHealth;
         healthBarUIFound = false;
+
+        players = new List<GameObject>();
+        players = GameObject.FindGameObjectsWithTag("Player").ToList();
+        currentPlayerIndex = 1;
     }
 
     // Update is called once per frame
