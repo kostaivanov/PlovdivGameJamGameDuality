@@ -33,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (healthBarUIFound == false && GameObject.FindGameObjectWithTag("HealthBar") != null)
         {
             healthSlider = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
@@ -42,9 +43,15 @@ public class PlayerHealth : MonoBehaviour
             healthSlider.value = fullHealth;
         }
 
-        if (healthBarIsActive == true)
+        if (healthBarIsActive == true && this.gameObject.transform.position.y < 0 && currentHealth > 0)
         {
+            Debug.Log(currentHealth);
             currentHealth -= Time.deltaTime * decreasePerMinute / 5f;
+            this.healthSlider.value = this.currentHealth;
+        }
+        else if(healthBarIsActive == true && this.gameObject.transform.position.y > 0 && currentHealth < 25)
+        {
+            currentHealth += Time.deltaTime * decreasePerMinute / 5f;
             this.healthSlider.value = this.currentHealth;
         }
 
