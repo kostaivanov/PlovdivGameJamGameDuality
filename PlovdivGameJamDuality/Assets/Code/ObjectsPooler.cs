@@ -22,6 +22,7 @@ public class ObjectsPooler : MonoBehaviour
     void Start()
     {
         pooledObjects = new List<GameObject>();
+        pooledGroundObjects = new List<GameObject>();
 
         for (int i = 0; i < pooledAmount; i++)
         {
@@ -48,10 +49,11 @@ public class ObjectsPooler : MonoBehaviour
 
         for (int i = 0; i < pooledAmountGround; i++)
         {
-            GameObject laserObj = Instantiate(pooledGroundObject);
-            laserObj.transform.parent = parentInstantiateObject.transform;
-            laserObj.SetActive(false);
-            pooledGroundObjects.Add(laserObj);
+            Debug.Log("pooled ?");
+            GameObject groundObj = Instantiate(pooledGroundObject);
+            groundObj.transform.parent = parentInstantiateObject.transform;
+            groundObj.SetActive(false);
+            pooledGroundObjects.Add(groundObj);
         }
     }
 
@@ -86,11 +88,13 @@ public class ObjectsPooler : MonoBehaviour
         return null;
     }
 
-    internal GameObject GetPooledGroundObjects()
+    internal GameObject GetPooledGroundObjects(string typeObject)
     {
         for (int i = 0; i < pooledGroundObjects.Count; i++)
         {
-            if (!pooledGroundObjects[i].activeInHierarchy)
+            string name = pooledGroundObject.name.Substring(0, 1);
+
+            if (name == typeObject && !pooledGroundObjects[i].activeInHierarchy)
             {
                 return pooledGroundObjects[i];
             }

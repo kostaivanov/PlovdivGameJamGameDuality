@@ -23,7 +23,7 @@ public class SceneSpawnObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.name.EndsWith("4") == true)
+        if (this.gameObject.name.EndsWith("1") == true)
         {
             SpawnGround(nextSpawnTime);
         }
@@ -70,7 +70,7 @@ public class SceneSpawnObjects : MonoBehaviour
            
             typeObject = groundName;
             
-            GameObject obj = ObjectsPooler.current.GetPooledObject(typeObject);
+            GameObject obj = ObjectsPooler.current.GetPooledGroundObjects(typeObject);
 
             if (obj == null)
             {

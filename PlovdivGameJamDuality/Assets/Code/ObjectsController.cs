@@ -14,7 +14,14 @@ public class ObjectsController : MonoBehaviour, IMovable
     {
         move = true;
 
-        Invoke("Disable", 10f);
+        if (this.gameObject.name.StartsWith("5") == true)
+        {
+            Invoke("Disable", 30f);
+        }
+        else
+        {
+            Invoke("Disable", 10f);
+        }
     }
 
     private void OnDisable()
