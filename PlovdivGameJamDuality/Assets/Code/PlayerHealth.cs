@@ -103,11 +103,16 @@ internal class PlayerHealth : ObjectComponents
 
     protected void AnimationStateSwitch()
     {
-        if (lifePoints > 8)
+        if (lifePoints > 5)
         {
             this.state = PlayerState.transitionBody;
         }
     }
 
-
+    public void PlayerTransition()
+    {
+        base.sprite.enabled = false;
+        players[currentPlayerIndex + 1].SetActive(true);
+        players[currentPlayerIndex].SetActive(false);
+    }
 }
