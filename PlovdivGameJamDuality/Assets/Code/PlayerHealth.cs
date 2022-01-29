@@ -45,7 +45,6 @@ public class PlayerHealth : MonoBehaviour
 
         if (healthBarIsActive == true && this.gameObject.transform.position.y < 0 && currentHealth > 0)
         {
-            Debug.Log(currentHealth);
             currentHealth -= Time.deltaTime * decreasePerMinute / 5f;
             this.healthSlider.value = this.currentHealth;
         }
