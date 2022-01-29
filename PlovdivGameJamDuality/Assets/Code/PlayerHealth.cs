@@ -42,6 +42,11 @@ internal class PlayerHealth : ObjectComponents
         players = new List<GameObject>();
         players = GameObject.FindGameObjectsWithTag("Player").ToList();
         currentPlayerIndex = 1;
+        for (int i = 1; i < players.Count; i++)
+        {
+            players[i].SetActive(false);
+            Debug.Log(players[i].name);
+        }
     }
 
     // Update is called once per frame
@@ -113,6 +118,6 @@ internal class PlayerHealth : ObjectComponents
     {
         base.sprite.enabled = false;
         players[currentPlayerIndex + 1].SetActive(true);
-        players[currentPlayerIndex].SetActive(false);
+        //players[currentPlayerIndex].SetActive(false);
     }
 }
