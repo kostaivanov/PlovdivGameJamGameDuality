@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
         fellOffWorld = false;
 
         currentHealth = fullHealth;
+        healthBarUIFound = false;
     }
 
     // Update is called once per frame
@@ -40,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
         {
             healthSlider = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
             healthBarIsActive = true;
-
+            healthBarUIFound = true;
             healthSlider.maxValue = fullHealth;
             healthSlider.value = fullHealth;
         }
