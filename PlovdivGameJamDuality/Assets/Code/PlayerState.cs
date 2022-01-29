@@ -7,5 +7,6 @@ internal enum PlayerState
     running,
     jumping,
     falling,
-    landing
+    landing,
+    transitionBody
 }

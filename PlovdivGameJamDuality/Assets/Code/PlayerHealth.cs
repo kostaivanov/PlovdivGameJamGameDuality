@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+internal class PlayerHealth : ObjectComponents
 {
     private int lowerBoundLife = 10;
     private int upperBoundLife = 15;
+    private int lifePoints = 0;
+    private float Timer;
     private const float decreasePerMinute = 5;
+    internal PlayerState state;
 
     #region HealthBar
     private bool healthBarIsActive;
@@ -18,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     #region Player
     [SerializeField] protected float fullHealth;
     internal float currentHealth;
+
 
     private bool isAlive;
     internal bool fellOffWorld;
@@ -36,6 +40,20 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(lifePoints);
+        Timer += Time.deltaTime;
+        if (Timer > 1)
+        {
+            Timer = 0;
+            if (currentHealth >= 10 && currentHealth <=15)
+            {
+                lifePoints++;
+            }
+            else
+            {
+                lifePoints = 0;
+            }
+        }
 
         if (healthBarUIFound == false && GameObject.FindGameObjectWithTag("HealthBar") != null)
         {
@@ -69,4 +87,20 @@ public class PlayerHealth : MonoBehaviour
             isAlive = false;
         }
     }
+
+    private void LateUpdate()
+    {
+        this.AnimationStateSwitch();
+        base.animator.SetInteger("state", (int)state);
+    }
+
+    protected void AnimationStateSwitch()
+    {
+        if (lifePoints > 8)
+        {
+            this.state = PlayerState.transitionBody;
+        }
+    }
+
+
 }
