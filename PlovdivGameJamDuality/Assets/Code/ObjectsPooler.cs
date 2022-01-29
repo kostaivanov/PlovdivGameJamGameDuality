@@ -5,11 +5,13 @@ using UnityEngine;
 public class ObjectsPooler : MonoBehaviour
 {
     internal static ObjectsPooler current;
-    [SerializeField] internal List<GameObject> pooledObjectsArray;
+    [SerializeField] internal List<GameObject> pooledPlatformsArray;
+    [SerializeField] internal GameObject pooledGroundObject;
     [SerializeField] private int pooledAmount;
-    [SerializeField] private bool willGrow;
+    [SerializeField] private int pooledAmountGround;
+    [SerializeField] private bool willGrow, willGrowGround;
 
-    internal List<GameObject> pooledObjects;
+    internal List<GameObject> pooledObjects, pooledGroundObjects;
     [SerializeField] internal GameObject parentInstantiateObject;
 
     private void Awake()
@@ -24,13 +26,13 @@ public class ObjectsPooler : MonoBehaviour
         for (int i = 0; i < pooledAmount; i++)
         {
             //GameObject obj = Instantiate(pooledObjectsArray[Random.Range(0, pooledObjectsArray.Count)]);
-            GameObject obj_1 = Instantiate(pooledObjectsArray[0]);
+            GameObject obj_1 = Instantiate(pooledPlatformsArray[0]);
             obj_1.transform.parent = parentInstantiateObject.transform;
-            GameObject obj_2 = Instantiate(pooledObjectsArray[1]);
+            GameObject obj_2 = Instantiate(pooledPlatformsArray[1]);
             obj_2.transform.parent = parentInstantiateObject.transform;
-            GameObject obj_3 = Instantiate(pooledObjectsArray[2]);
+            GameObject obj_3 = Instantiate(pooledPlatformsArray[2]);
             obj_3.transform.parent = parentInstantiateObject.transform;
-            GameObject obj_4 = Instantiate(pooledObjectsArray[3]);
+            GameObject obj_4 = Instantiate(pooledPlatformsArray[3]);
             obj_4.transform.parent = parentInstantiateObject.transform;
 
             obj_1.SetActive(false);
@@ -42,6 +44,14 @@ public class ObjectsPooler : MonoBehaviour
             pooledObjects.Add(obj_2);
             pooledObjects.Add(obj_3);
             pooledObjects.Add(obj_4);
+        }
+
+        for (int i = 0; i < pooledAmountGround; i++)
+        {
+            GameObject laserObj = Instantiate(pooledGroundObject);
+            laserObj.transform.parent = parentInstantiateObject.transform;
+            laserObj.SetActive(false);
+            pooledGroundObjects.Add(laserObj);
         }
     }
 
@@ -61,16 +71,37 @@ public class ObjectsPooler : MonoBehaviour
         if (willGrow == true)
         {
             //GameObject obj = Instantiate(pooledObjectsArray[Random.Range(0, pooledObjectsArray.Count)]);
-            for (int i = 0; i < pooledObjectsArray.Count; i++)
+            for (int i = 0; i < pooledPlatformsArray.Count; i++)
             {
-                if (typeObject == pooledObjectsArray[i].name)
+                if (typeObject == pooledPlatformsArray[i].name)
                 {
-                    GameObject obj = Instantiate(pooledObjectsArray[i]);
+                    GameObject obj = Instantiate(pooledPlatformsArray[i]);
                     obj.transform.parent = parentInstantiateObject.transform;
                     pooledObjects.Add(obj);
                     return obj;
                 }
             }
+        }
+
+        return null;
+    }
+
+    internal GameObject GetPooledGroundObjects()
+    {
+        for (int i = 0; i < pooledGroundObjects.Count; i++)
+        {
+            if (!pooledGroundObjects[i].activeInHierarchy)
+            {
+                return pooledGroundObjects[i];
+            }
+        }
+
+        if (willGrowGround == true)
+        {
+            GameObject laserObj = Instantiate(pooledGroundObject);
+            laserObj.transform.parent = parentInstantiateObject.transform;
+            pooledGroundObjects.Add(laserObj);
+            return laserObj;
         }
 
         return null;

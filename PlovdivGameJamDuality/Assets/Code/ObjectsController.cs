@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectsController : MonoBehaviour
+public class ObjectsController : MonoBehaviour, IMovable
 {
     [SerializeField] float speed;
     //[SerializeField] private MeteoriteHealthController healthController;
@@ -40,10 +40,15 @@ public class ObjectsController : MonoBehaviour
     {
         if (move == true)
         {
-            if (rigidBody != null)
-            {
-                rigidBody.velocity = Vector2.left * speed * Time.fixedDeltaTime;
-            }
+            Move();
+        }
+    }
+
+    public void Move()
+    {
+        if (rigidBody != null)
+        {
+            rigidBody.velocity = Vector2.left * speed * Time.fixedDeltaTime;
         }
     }
 }

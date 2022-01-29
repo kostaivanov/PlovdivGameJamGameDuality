@@ -6,7 +6,7 @@ public class SceneSpawnObjects : MonoBehaviour
 {
     private float nextSpawnTimeBig;
     private string[] platformNames = new string[] { "1", "2", "3", "4" };
-
+    private string groundName = "5";
     [SerializeField] private float addToSpawnTime;
     public float chanceSpawnRare = 0.1f;
 
@@ -56,12 +56,34 @@ public class SceneSpawnObjects : MonoBehaviour
         }
     }
 
-    private void IncreaseRateOfSpawnMeteorites()
+    private void SpawnGround(float spawnTime)
     {
-        if (addToSpawnTime >= 0)
+        if (Time.time > spawnTime)
         {
-            addToSpawnTime -= 0.2f;
-        }
+            string typeObject = string.Empty;
+           
+            typeObject = groundName;
+            
+            GameObject obj = ObjectsPooler.current.GetPooledObject(typeObject);
 
+            if (obj == null)
+            {
+                return;
+            }
+            obj.transform.position = this.transform.position;
+            obj.transform.rotation = this.transform.rotation;
+            obj.SetActive(true);
+
+            nextSpawnTimeBig += addToSpawnTime;
+        }
     }
+
+    //private void IncreaseRateOfSpawnMeteorites()
+    //{
+    //    if (addToSpawnTime >= 0)
+    //    {
+    //        addToSpawnTime -= 0.2f;
+    //    }
+
+    //}
 }
