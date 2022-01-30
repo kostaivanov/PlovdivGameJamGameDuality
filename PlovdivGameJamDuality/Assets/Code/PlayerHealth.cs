@@ -38,13 +38,14 @@ internal class PlayerHealth : ObjectComponents
 
         currentHealth = fullHealth;
         healthBarUIFound = false;
+        Debug.Log(lifePoints);
 
-        players = new List<GameObject>();
+        //players = new List<GameObject>();
         //players = GameObject.FindGameObjectsWithTag("Player").ToList();
-        currentPlayerIndex = 1;
+        currentPlayerIndex = 0;
         for (int i = 1; i < players.Count; i++)
         {
-
+            Debug.Log(players[i].name);
             players[i].SetActive(false);
 
         }
@@ -53,7 +54,6 @@ internal class PlayerHealth : ObjectComponents
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(lifePoints);
         Timer += Time.deltaTime;
         if (Timer > 1)
         {
@@ -117,7 +117,8 @@ internal class PlayerHealth : ObjectComponents
 
     public void PlayerTransition()
     {
-        base.sprite.enabled = false;
+        Debug.Log("transition");
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         players[currentPlayerIndex + 1].SetActive(true);
         //players[currentPlayerIndex].SetActive(false);
     }

@@ -49,7 +49,7 @@ public class ObjectsPooler : MonoBehaviour
 
         for (int i = 0; i < pooledAmountGround; i++)
         {
-            Debug.Log("pooled ?");
+            //Debug.Log("pooled ?");
             GameObject groundObj = Instantiate(pooledGroundObject);
             groundObj.transform.parent = parentInstantiateObject.transform;
             groundObj.SetActive(false);
