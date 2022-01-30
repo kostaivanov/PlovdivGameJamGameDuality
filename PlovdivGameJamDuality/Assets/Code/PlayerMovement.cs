@@ -121,7 +121,6 @@ internal class PlayerMovement : ObjectComponents, IMovable
         }
         else if (state == PlayerState.jumping)
         {
-
             if (rigidBody.velocity.y < minimumFallingVelocity_Y)
             {
                 state = PlayerState.falling;
