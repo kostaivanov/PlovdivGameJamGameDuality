@@ -19,6 +19,9 @@ internal class PlayerHealth : ObjectComponents
     private bool healthBarUIFound;
     private GameObject healthBar;
     protected Slider healthSlider;
+
+    private int previousIndexPlayer;
+    private bool TransitionCompleted;
     #endregion
 
     #region Player
@@ -43,21 +46,39 @@ internal class PlayerHealth : ObjectComponents
 
         //players = new List<GameObject>();
         //players = GameObject.FindGameObjectsWithTag("Player").ToList();
-        currentPlayerIndex = 0;
+        if (this.gameObject.name == "1_Victor")
+        {
+            currentPlayerIndex = 0;
+        }
+        if (this.gameObject.name == "2_Victor")
+        {
+            currentPlayerIndex = 1;
+        }
+        if (this.gameObject.name == "3_Victor")
+        {
+            currentPlayerIndex = 2;
+        }
+
+
+        previousIndexPlayer = currentPlayerIndex;
         for (int i = 1; i < players.Count; i++)
         {
-            Debug.Log(players[i].name);
             players[i].SetActive(false);
-
         }
         healthBar = GameObject.FindGameObjectWithTag("HealthBar");
+        TransitionCompleted = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(players[currentPlayerIndex].name);
         Timer += Time.deltaTime;
-       // Debug.Log("TIme = " + Timer + " - life points = " + lifePoints);
+        //Debug.Log("TIme = " + Timer + " - life points = " + lifePoints);
+        Debug.Log("life points = " + lifePoints);
+        Debug.Log("index player  = " + currentPlayerIndex);
+
+
         if (Timer > 1)
         {
             Timer = 0;
@@ -108,13 +129,13 @@ internal class PlayerHealth : ObjectComponents
     {
         this.AnimationStateSwitch();
         base.animator.SetInteger("state", (int)state);
-        Debug.Log("transition");
+
 
     }
 
     protected void AnimationStateSwitch()
     {
-        if (lifePoints > 5)
+        if (lifePoints > 3 && TransitionCompleted == false)
         {
             this.state = PlayerState.transitionBody;
         }
@@ -126,14 +147,50 @@ internal class PlayerHealth : ObjectComponents
         base.collider2D.enabled = false;
         //this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         //this.gameObject.GetComponent<Collider2D>().enabled = false;
+
         this.gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        players[currentPlayerIndex + 1].SetActive(true);
+
+        //Debug.Log("transition");
+        if (this.gameObject.name == "1_Victor")
+        {
+            players[1].SetActive(true);
+            Debug.Log("1");
+        }
+        else if (this.gameObject.name == "2_Victor")
+        {
+            players[2].SetActive(true);
+            Debug.Log("2");
+        }
+        else if (this.gameObject.name == "3_Victor")
+        {
+            players[3].SetActive(true);
+            Debug.Log("3");
+        }
+
+
+        //this.state = PlayerState.running;
+        //currentPlayerIndex++;
+        //StartCoroutine(Deactive());
     }
 
     private IEnumerator Deactive()
     {
-        yield return new WaitForSecondsRealtime(1);
-        currentPlayerIndex++;
-        players[currentPlayerIndex].SetActive(false);
+        yield return new WaitForSecondsRealtime(3);
+        //this.gameObject.SetActive(false);
+        //if (players[0].activeSelf == true)
+        //{
+        //    Debug.Log("asd1");
+
+        //}
+        //else if (players[1].activeSelf == true)
+        //{
+        //    Debug.Log("asd2");
+        //    players[1].SetActive(false);
+        //}
+        //else if (players[2].activeSelf == true)
+        //{
+        //    Debug.Log("asd3");
+        //    players[2].SetActive(false);
+        //}
     }
 }
