@@ -118,10 +118,11 @@ internal class PlayerHealth : ObjectComponents
     public void PlayerTransition()
     {
         Debug.Log("transition");
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        this.gameObject.GetComponent<Collider2D>().enabled = false;
+        base.sprite.enabled = false;
+        base.collider2D.enabled = false;
+        //this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        //this.gameObject.GetComponent<Collider2D>().enabled = false;
         this.gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        //this.gameObject.transform.GetChild(0).gameObject.GetComponent<Collider2D>().enabled = false;
         players[currentPlayerIndex + 1].SetActive(true);
     }
 
