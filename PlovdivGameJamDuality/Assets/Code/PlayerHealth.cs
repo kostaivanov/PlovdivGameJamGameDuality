@@ -119,7 +119,16 @@ internal class PlayerHealth : ObjectComponents
     {
         Debug.Log("transition");
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        this.gameObject.GetComponent<Collider2D>().enabled = false;
+        this.gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        //this.gameObject.transform.GetChild(0).gameObject.GetComponent<Collider2D>().enabled = false;
         players[currentPlayerIndex + 1].SetActive(true);
-        //players[currentPlayerIndex].SetActive(false);
+    }
+
+    private IEnumerator Deactive()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        currentPlayerIndex++;
+        players[currentPlayerIndex].SetActive(false);
     }
 }
