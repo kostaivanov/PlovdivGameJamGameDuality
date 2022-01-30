@@ -66,6 +66,8 @@ internal class PlayerMovement : ObjectComponents, IMovable
     {
         this.AnimationStateSwitch();
         base.animator.SetInteger("state", (int)state);
+        Debug.Log("jumpinggg");
+
     }
 
     internal bool CheckIfIsGrounded()
@@ -107,6 +109,7 @@ internal class PlayerMovement : ObjectComponents, IMovable
         if (rigidBody.velocity.y > 1f && CheckIfIsGrounded() != true)
         {
             this.state = PlayerState.jumping;
+            Debug.Log("jumpinggg");
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("falling") && state == PlayerState.falling && collider2D.IsTouchingLayers(groundLayer))
         {
@@ -114,6 +117,7 @@ internal class PlayerMovement : ObjectComponents, IMovable
         }
         else if (state == PlayerState.jumping)
         {
+            Debug.Log("jumpinggg");
             if (rigidBody.velocity.y == 0 || CheckIfIsGrounded() == true)
             {
                 state = PlayerState.running;
@@ -121,6 +125,7 @@ internal class PlayerMovement : ObjectComponents, IMovable
         }
         else if (state == PlayerState.jumping)
         {
+            Debug.Log("jumpinggg");
             if (rigidBody.velocity.y < minimumFallingVelocity_Y)
             {
                 state = PlayerState.falling;
@@ -128,6 +133,7 @@ internal class PlayerMovement : ObjectComponents, IMovable
         }
         else if (state == PlayerState.falling)
         {
+            Debug.Log("jumpinggg");
             if (collider2D.IsTouchingLayers(groundLayer))
             {
                 state = PlayerState.running;
@@ -135,11 +141,13 @@ internal class PlayerMovement : ObjectComponents, IMovable
         }
         else
         {
+            Debug.Log("jumpinggg");
             state = PlayerState.running;
         }
 
         if (rigidBody.velocity.y < minimumFallingVelocity_Y)
         {
+            Debug.Log("jumpinggg");
             state = PlayerState.falling;
         }
     }

@@ -57,7 +57,7 @@ internal class PlayerHealth : ObjectComponents
     void Update()
     {
         Timer += Time.deltaTime;
-        Debug.Log("TIme = " + Timer + " - life points = " + lifePoints);
+       // Debug.Log("TIme = " + Timer + " - life points = " + lifePoints);
         if (Timer > 1)
         {
             Timer = 0;
@@ -108,6 +108,8 @@ internal class PlayerHealth : ObjectComponents
     {
         this.AnimationStateSwitch();
         base.animator.SetInteger("state", (int)state);
+        Debug.Log("transition");
+
     }
 
     protected void AnimationStateSwitch()
@@ -120,7 +122,6 @@ internal class PlayerHealth : ObjectComponents
 
     public void PlayerTransition()
     {
-        Debug.Log("transition");
         base.sprite.enabled = false;
         base.collider2D.enabled = false;
         //this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
