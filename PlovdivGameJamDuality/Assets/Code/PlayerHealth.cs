@@ -17,6 +17,7 @@ internal class PlayerHealth : ObjectComponents
     #region HealthBar
     private bool healthBarIsActive;
     private bool healthBarUIFound;
+    private GameObject healthBar;
     protected Slider healthSlider;
     #endregion
 
@@ -49,6 +50,7 @@ internal class PlayerHealth : ObjectComponents
             players[i].SetActive(false);
 
         }
+        healthBar = GameObject.FindGameObjectWithTag("HealthBar");
     }
 
     // Update is called once per frame
@@ -69,9 +71,9 @@ internal class PlayerHealth : ObjectComponents
             }
         }
 
-        if (healthBarUIFound == false && GameObject.FindGameObjectWithTag("HealthBar") != null)
+        if (healthBarUIFound == false && healthBar != null)
         {
-            healthSlider = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
+            healthSlider = healthBar.GetComponent<Slider>();
             healthBarIsActive = true;
             healthBarUIFound = true;
             healthSlider.maxValue = fullHealth;
