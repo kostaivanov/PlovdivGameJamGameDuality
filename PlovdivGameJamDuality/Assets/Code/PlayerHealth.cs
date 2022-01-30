@@ -38,7 +38,7 @@ internal class PlayerHealth : ObjectComponents
 
         currentHealth = fullHealth;
         healthBarUIFound = false;
-        Debug.Log(lifePoints);
+        //Debug.Log(lifePoints);
 
         //players = new List<GameObject>();
         //players = GameObject.FindGameObjectsWithTag("Player").ToList();
@@ -55,10 +55,11 @@ internal class PlayerHealth : ObjectComponents
     void Update()
     {
         Timer += Time.deltaTime;
+        Debug.Log("TIme = " + Timer + " - life points = " + lifePoints);
         if (Timer > 1)
         {
             Timer = 0;
-            if (currentHealth >= 10 && currentHealth <=15)
+            if (currentHealth > 10 && currentHealth < 15)
             {
                 lifePoints++;
             }
